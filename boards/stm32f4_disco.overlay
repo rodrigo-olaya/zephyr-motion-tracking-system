@@ -1,0 +1,15 @@
+/ {
+    ir_sensor: gpio_keys {
+        compatible = "gpio-keys";
+        label = "IR Sensor";
+
+        ir_input: ir_input {
+            gpios = <&gpioa 2 GPIO_ACTIVE_LOW>;
+            label = "IR IN";
+        };
+    };
+
+    aliases {
+        irsensor = &ir_input;
+    };
+};
