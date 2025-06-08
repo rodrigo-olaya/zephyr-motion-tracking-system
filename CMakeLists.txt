@@ -4,4 +4,6 @@ find_package(Zephyr)
 project(zephyr-alarm-system)
 
 target_sources(app PRIVATE 
-            src/main.c)
+            src/main.c
+            src/leds/led.c
+            src/sensors/ir_sensor.c)
