@@ -5,7 +5,6 @@
 void blink(const struct led *led, struct k_fifo *led_fifo, uint32_t id)
 {
 	const struct gpio_dt_spec *spec = &led->spec;
-	int cnt = 0;
 	int ret;
 
 	if (!gpio_is_ready_dt(spec)) {

@@ -21,6 +21,6 @@ struct ir_sensor {
 	uint8_t num;
 };
 
-void ir_sensor_read(const struct ir_sensor *ir_sensor, struct k_fifo *led0_fifo, struct k_fifo *led1_fifo);
+void ir_sensor_read(const struct ir_sensor *ir_sensor, struct k_fifo *led0_fifo, struct k_fifo *led1_fifo, struct k_fifo *spi_fifo);
 
 #endif // IR_SENSOR_H

@@ -9,7 +9,30 @@
         };
     };
 
+
+
+    /* Set devicetree aliases */
     aliases {
         irsensor = &ir_input;
+        arduinospi = &spi2;
     };
 };
+
+/* Modify the existing spi2 node */
+&spi2 {
+    status = "okay";
+    pinctrl-0 = <&spi2_sck_pb13 &spi2_miso_pb14 &spi2_mosi_pb15>;
+    pinctrl-names = "default";
+    cs-gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
+
+    arduino_spi_dev: arduino@0 {
+        compatible = "spi-device";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        label = "ARDUINO_SPI";
+    };
+};
+
+
+
+
