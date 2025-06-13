@@ -15,6 +15,7 @@
     aliases {
         irsensor = &ir_input;
         arduinospi = &spi2;
+        mpu6050 = &mpu6050;
     };
 };
 
@@ -32,6 +33,22 @@
         label = "ARDUINO_SPI";
     };
 };
+
+&i2c1 {
+    status = "okay";
+    pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb9>;
+    pinctrl-names = "default";
+    clock-frequency = <I2C_BITRATE_STANDARD>; // 100kHz
+
+    mpu6050: mpu6050@68 {
+        compatible = "invensense,mpu6050";
+        reg = <0x68>;
+        label = "MPU6050";
+        // Optional: enable if you wire INT pin
+        // int-gpios = <&gpioa 1 GPIO_ACTIVE_HIGH>;
+    };
+};
+
 
 
 
