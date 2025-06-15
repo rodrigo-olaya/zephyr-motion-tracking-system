@@ -7,4 +7,5 @@ target_sources(app PRIVATE
             src/main.c
             src/leds/led.c
             src/sensors/ir_sensor.c
-            src/comm/spi.c)
+            src/comm/spi.c
+            src/sensors/mpu6050.c)

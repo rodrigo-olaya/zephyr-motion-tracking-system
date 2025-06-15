@@ -55,7 +55,7 @@ void spi_comm(struct device *spi_dev, struct k_fifo *spi_fifo){
             printk("SPI write failed: %d\n", ret);
         }
         
-        k_sleep(K_MSEC(2000));
+        k_sleep(K_MSEC(500));
         k_free(spi_data);
     }
 };
