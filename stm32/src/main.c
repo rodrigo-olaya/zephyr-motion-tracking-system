@@ -42,11 +42,7 @@ static const struct ir_sensor ir_sensor0 = {
 
 static const struct device *spi_dev = DEVICE_DT_GET(SPI_NODE);
 
-/* New def for MPU */
-
 const struct device *const mpu6050 = DEVICE_DT_GET(MPU6050_NODE);
-
-/* End of new def for MPU */
 
 void blink0(void)
 {
