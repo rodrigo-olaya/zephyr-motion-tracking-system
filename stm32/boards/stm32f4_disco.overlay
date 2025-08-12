@@ -16,6 +16,7 @@
         irsensor = &ir_input;
         arduinospi = &spi2;
         mpu6050 = &mpu6050;
+        raspi4 = &usart1;
     };
 };
 
@@ -47,6 +48,13 @@
         // Optional: enable if you wire INT pin
         // int-gpios = <&gpioa 1 GPIO_ACTIVE_HIGH>;
     };
+};
+
+&usart1 {
+    status = "okay";
+    pinctrl-0 = <&usart1_tx_pa9 &usart1_rx_pa10>;
+    pinctrl-names = "default";
+    current-speed = <2400>;
 };
 
 

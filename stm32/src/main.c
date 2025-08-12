@@ -13,8 +13,13 @@
 
 #include <zephyr/drivers/sensor.h>
 
+#include <zephyr/drivers/uart.h>
+
 /* size of stack area used by each thread */
 #define STACKSIZE 1024
+/* New */
+#define MSG_SIZE 64
+/* End new */
 
 /* scheduling priority used by each thread */
 #define PRIORITY_SENSOR 5
@@ -44,6 +49,13 @@ static const struct device *spi_dev = DEVICE_DT_GET(SPI_NODE);
 
 const struct device *const mpu6050 = DEVICE_DT_GET(MPU6050_NODE);
 
+/* Temp definitions for UART */
+
+#define UART0_NODE DT_ALIAS(raspi4)
+static const struct device *pi4 = DEVICE_DT_GET(UART0_NODE);
+
+/* End temp definitions for UART*/
+
 void blink0(void)
 {
 	blink(&led0, &led0_fifo, 0);
@@ -67,6 +79,24 @@ void spi_comm0(void)
 void IMU_read0(void)
 {
 	IMU_read(mpu6050, &spi_fifo);
+}
+
+int main(void)
+{
+    
+	if (!device_is_ready(pi4)) {
+        return 0;
+    }
+
+    while (1){
+        const char *msg = "Initial UART connection\n";
+        for (int i = 0; msg[i] != '\0'; i++) {
+            uart_poll_out(pi4, msg[i]);
+            k_sleep(K_SECONDS(0.5));
+        }
+    }
+
+	return 0;
 }
 
 /*	First Thread  */
