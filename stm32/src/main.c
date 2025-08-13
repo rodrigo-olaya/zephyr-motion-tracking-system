@@ -49,12 +49,7 @@ static const struct device *spi_dev = DEVICE_DT_GET(SPI_NODE);
 
 const struct device *const mpu6050 = DEVICE_DT_GET(MPU6050_NODE);
 
-/* Temp definitions for UART */
-
-#define UART0_NODE DT_ALIAS(raspi4)
 static const struct device *pi4 = DEVICE_DT_GET(UART0_NODE);
-
-/* End temp definitions for UART*/
 
 void blink0(void)
 {
@@ -78,24 +73,11 @@ void spi_comm0(void)
 
 void IMU_read0(void)
 {
-	IMU_read(mpu6050, &spi_fifo);
+	IMU_read(mpu6050, &spi_fifo, pi4);
 }
 
 int main(void)
 {
-    
-	if (!device_is_ready(pi4)) {
-        return 0;
-    }
-
-    while (1){
-        const char *msg = "Initial UART connection\n";
-        for (int i = 0; msg[i] != '\0'; i++) {
-            uart_poll_out(pi4, msg[i]);
-            k_sleep(K_SECONDS(0.5));
-        }
-    }
-
 	return 0;
 }
 

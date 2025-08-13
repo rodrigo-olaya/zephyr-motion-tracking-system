@@ -1,7 +1,6 @@
-/* Start of temp IMU code before thread refactoring */
 #include "mpu6050.h"
 
-int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo){
+int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo, const struct device *const pi4){
 
 	struct spi_fifo_t spi_fifo_data;
 
@@ -13,6 +12,18 @@ int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo){
 	struct sensor_value acc_x_val;
 
 	while (1){
+
+		if (!device_is_ready(pi4)) {
+        	return 0;
+    	}
+
+		/* Start sending data through UART */
+		const char *msg = "IMU data ready\n";
+		for (int i = 0; msg[i] != '\0'; i++) {
+			uart_poll_out(pi4, msg[i]);
+			k_sleep(K_SECONDS(0.1));
+		}
+
 		// first need to do sensor sample fetch
 		int rc = sensor_sample_fetch(mpu6050);
 
@@ -52,5 +63,3 @@ int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo){
 
 	return 0;
 }
-
-/* End of temp code before thread refactoring */

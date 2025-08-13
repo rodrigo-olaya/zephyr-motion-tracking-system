@@ -8,12 +8,12 @@
 #include <zephyr/kernel.h>
 #include "../comm/spi.h"
 
-/* Temp defs for MPU6050 */
+#include <zephyr/drivers/uart.h>
 
 #define MPU6050_NODE DT_ALIAS(mpu6050)
 
-/* End of temp defs for MPU6050 */
+#define UART0_NODE DT_ALIAS(raspi4)
 
-int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo);
+int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo, const struct device *const pi4);
 
 #endif // MPU6050_H
