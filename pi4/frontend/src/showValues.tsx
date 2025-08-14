@@ -20,6 +20,8 @@ const GetImuData = () => {
     
     useEffect(() => {
         fetchAllData()
+        const interval = setInterval(fetchAllData, 1000)
+        return () => clearInterval(interval)
     }, [])
     return (
         <div>
