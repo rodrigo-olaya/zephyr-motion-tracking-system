@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
+const apiUrl = import.meta.env.VITE_API_URL as string;
+
 const GetImuData = () => {
 
     const [values, setValues] = useState<string[]>([])
 
     const fetchAllData = async () => {
         try {
-        const response = await axios.get('http://192.168.12.109:8080/api/data')
+        const response = await axios.get(apiUrl)
         if (Array.isArray(response.data)) {
             setValues(response.data)
         } else {
