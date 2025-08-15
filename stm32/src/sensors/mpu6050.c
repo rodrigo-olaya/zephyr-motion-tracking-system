@@ -16,7 +16,6 @@ int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo, const 
 		if (!device_is_ready(pi4)) {
         	return 0;
     	}
-
 		
 		// first need to do sensor sample fetch
 		int rc = sensor_sample_fetch(mpu6050);
@@ -32,7 +31,7 @@ int IMU_read(const struct device *const mpu6050, struct k_fifo *spi_fifo, const 
 
 		int int_part = (int)acc_x;
 		int frac_part = (int)((acc_x - int_part) * 100);
-		snprintf(buffer, buffer_size, "The value is: %d.%02d", int_part, frac_part);
+		snprintf(buffer, buffer_size, "%d.%02d", int_part, frac_part);
 
 		for (int i = 0; buffer[i] != '\0'; i++) {
 			uart_poll_out(pi4, buffer[i]);
